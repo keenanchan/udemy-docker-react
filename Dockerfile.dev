@@ -1,0 +1,17 @@
+FROM node:16-alpine
+
+# specify that node user will be executing instructions
+USER node
+
+# use /home/node/app, otherwise WORKDIR creates a root-owned workdir
+# this would cause permissions issues
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
+
+# chown is to set ownership to node
+COPY --chown=node:node ./package.json ./
+RUN npm install
+
+COPY --chown=node:node ./ ./
+
+CMD ["npm", "start"]
