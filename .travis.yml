@@ -1,0 +1,16 @@
+# require sudo for all commands
+sudo: required
+
+language: generic
+
+# install docker for use in travisCI
+services:
+  - docker
+
+# pre-run commands
+before_install:
+  - docker build -t keenanchan/udemy-docker-react -f Dockerfile.dev .
+
+# script to be run by travisCI
+script:
+  - docker run -e CI=true keenanchan/udemy-docker-react npm run test
