@@ -14,3 +14,16 @@ before_install:
 # script to be run by travisCI
 script:
   - docker run -e CI=true keenanchan/udemy-docker-react npm run test
+
+# how to deploy to AWS
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "udemy-docker-react"
+  env: "Udemydockerreact-env"
+  bucket_name: "elasticbeanstalk-us-east-1-175412969001"
+  bucket_path: "udemy-docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
