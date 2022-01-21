@@ -21,6 +21,11 @@ RUN npm run build
 
 # 2. RUN PHASE
 FROM nginx
+
+# locally this does nothing, but this is for EB to realise
+# which port to expose!
+EXPOSE 80
+
 COPY --from=builder /home/node/app/build /usr/share/nginx/html
 
 # default command of nginx already starts the server up
